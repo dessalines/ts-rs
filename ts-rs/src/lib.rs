@@ -114,8 +114,9 @@
 //! [See CONTRIBUTING.md](https://github.com/Aleph-Alpha/ts-rs/blob/main/CONTRIBUTING.md)
 //!
 //! ## MSRV
-//! The Minimum Supported Rust Version for this crate is 1.63.0
+//! The Minimum Supported Rust Version for this crate is 1.72.0
 
+use std::sync::OnceLock;
 use std::{
     any::TypeId,
     collections::{BTreeMap, BTreeSet, HashMap, HashSet},
@@ -127,7 +128,6 @@ use std::{
     ops::{Range, RangeInclusive},
     path::{Path, PathBuf},
 };
-use std::sync::OnceLock;
 
 pub use ts_rs_macros::TS;
 

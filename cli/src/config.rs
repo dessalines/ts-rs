@@ -1,14 +1,14 @@
 use clap::Parser;
+use color_eyre::eyre::bail;
 use color_eyre::Result;
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
-use color_eyre::eyre::bail;
 
 #[derive(Parser, Debug)]
 #[allow(clippy::struct_excessive_bools)]
 pub struct Args {
-    /// Defines where your TS bindings will be saved by setting TS_RS_EXPORT_DIR
+    /// Defines where your TS bindings will be saved by setting `TS_RS_EXPORT_DIR`
     #[arg(long, short)]
     pub output_directory: PathBuf,
 
@@ -42,6 +42,7 @@ pub struct Args {
 // keeping this separate from `Args` for now :shrug:
 #[derive(Default, Deserialize)]
 #[serde(deny_unknown_fields, default)]
+#[allow(clippy::struct_excessive_bools)]
 pub struct Config {
     // type overrides for types implemented inside ts-rs.
     pub overrides: HashMap<String, String>,
@@ -69,7 +70,7 @@ impl Config {
             return Ok(Self::default());
         }
         let content = std::fs::read_to_string(path)?;
-        Ok(toml::from_str::<Config>(&content)?)
+        Ok(toml::from_str::<Self>(&content)?)
     }
 
     fn verify(&self) -> Result<()> {
@@ -100,5 +101,3 @@ impl Config {
         self.no_capture = no_capture;
     }
 }
-
-
